@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import * as gameStateService from '../services/gameStateService';
+import * as placementValidator from '../services/placementValidator';
 
 /**
  * Load game state for current user
@@ -8,12 +9,8 @@ export async function getGameState(req: Request, res: Response): Promise<void> {
   try {
     const userId = req.userId!;
 
-    const gameState = await gameStateService.loadGameState(userId);
-
-    if (!gameState) {
-      res.status(404).json({ error: 'No game state found' });
-      return;
-    }
+    // Use ensureGameState to auto-initialize if needed
+    const gameState = await gameStateService.ensureGameState(userId);
 
     res.status(200).json(gameState);
   } catch (error) {
@@ -44,28 +41,76 @@ export async function saveGameState(req: Request, res: Response): Promise<void> 
 
 /**
  * Place shape on board (with validation)
- * TODO: Implement full validation service
  */
 export async function placeShape(req: Request, res: Response): Promise<void> {
   try {
     const userId = req.userId!;
     const { location, shape, shapeIndex } = req.body;
 
-    // For now, just return success
-    // Full implementation would:
     // 1. Load current game state
-    // 2. Validate placement (isValidPlacement)
-    // 3. Apply shape to board
-    // 4. Clear lines
-    // 5. Update score
-    // 6. Save updated state
+    const gameState = await gameStateService.loadGameState(userId);
 
+    if (!gameState) {
+      res.status(404).json({ error: 'No game state found' });
+      return;
+    }
+
+    // 2. Validate placement
+    const isValid = placementValidator.validatePlacement(gameState.tiles, location, shape);
+
+    if (!isValid) {
+      res.status(400).json({
+        valid: false,
+        reason: 'Invalid placement - shape overlaps or out of bounds',
+      });
+      return;
+    }
+
+    // 3. Apply shape to board
+    const updatedTiles = placementValidator.applyShapeToBoard(gameState.tiles, location, shape);
+
+    // 4. Clear lines and calculate score
+    const { clearedTiles, linesCleared, rowsCleared, columnsCleared } =
+      placementValidator.clearLines(updatedTiles);
+
+    const pointsEarned = placementValidator.calculatePoints(
+      shape,
+      linesCleared,
+      rowsCleared,
+      columnsCleared
+    );
+
+    const newScore = gameState.score + pointsEarned;
+
+    // 5. Remove used shape from queue and generate new one if needed
+    const updatedQueue = [...gameState.nextQueue];
+
+    if (shapeIndex >= 0 && shapeIndex < updatedQueue.length) {
+      updatedQueue.splice(shapeIndex, 1);
+    }
+
+    // Add new shape if queue is getting low
+    if (updatedQueue.length < 3) {
+      updatedQueue.push({ type: 'shape', shape: placementValidator.generateRandomShape() });
+    }
+
+    // 6. Save updated state
+    await gameStateService.saveGameState(userId, {
+      score: newScore,
+      tiles: clearedTiles,
+      nextQueue: updatedQueue,
+      shapesUsed: (gameState.shapesUsed || 0) + 1,
+      totalLinesCleared: (gameState.totalLinesCleared || 0) + linesCleared,
+      hasPlacedFirstShape: true,
+    });
+
+    // 7. Return success response
     res.status(200).json({
       valid: true,
-      newScore: 0,
-      linesCleared: 0,
-      updatedTiles: [],
-      nextQueue: [],
+      newScore,
+      linesCleared,
+      updatedTiles: clearedTiles,
+      nextQueue: updatedQueue,
     });
   } catch (error) {
     console.error('Place shape error:', error);

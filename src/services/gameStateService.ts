@@ -265,6 +265,87 @@ export async function saveGameState(
 }
 
 /**
+ * Ensure game state exists for a user, creating it if necessary
+ */
+export async function ensureGameState(userId: string): Promise<SavedGameState> {
+  const existing = await loadGameState(userId);
+
+  if (existing) {
+    return existing;
+  }
+
+  // Initialize with default state
+  const initialState: Partial<SavedGameState> = {
+    version: '1.0.0',
+    score: 0,
+    tiles: [],
+    nextQueue: [
+      { type: 'shape', shape: generateInitialShape() },
+      { type: 'shape', shape: generateInitialShape() },
+      { type: 'shape', shape: generateInitialShape() },
+    ],
+    savedShape: null,
+    totalLinesCleared: 0,
+    shapesUsed: 0,
+    hasPlacedFirstShape: false,
+    queueMode: 'infinite',
+    queueColorProbabilities: [],
+    queueHiddenShapes: [],
+    queueSize: -1,
+    unlockedSlots: [1],
+    stats: {
+      allTime: {},
+      highScore: {},
+      current: {},
+      noTurnStreak: {
+        current: 0,
+        bestInGame: 0,
+        allTimeBest: 0,
+      },
+      lastUpdated: Date.now(),
+    },
+  };
+
+  await saveGameState(userId, initialState);
+
+  // Load and return the newly created state
+  const newState = await loadGameState(userId);
+  return newState!;
+}
+
+/**
+ * Generate an initial shape for the queue
+ */
+function generateInitialShape(): Shape {
+  // Simple starter shapes
+  const shapes: Shape[] = [
+    // Single block
+    [
+      [{ type: 'empty' }, { type: 'empty' }, { type: 'empty' }, { type: 'empty' }],
+      [{ type: 'empty' }, { type: 'filled', color: 'red' }, { type: 'empty' }, { type: 'empty' }],
+      [{ type: 'empty' }, { type: 'empty' }, { type: 'empty' }, { type: 'empty' }],
+      [{ type: 'empty' }, { type: 'empty' }, { type: 'empty' }, { type: 'empty' }],
+    ],
+    // 2x2 block
+    [
+      [{ type: 'empty' }, { type: 'empty' }, { type: 'empty' }, { type: 'empty' }],
+      [{ type: 'empty' }, { type: 'filled', color: 'yellow' }, { type: 'filled', color: 'yellow' }, { type: 'empty' }],
+      [{ type: 'empty' }, { type: 'filled', color: 'yellow' }, { type: 'filled', color: 'yellow' }, { type: 'empty' }],
+      [{ type: 'empty' }, { type: 'empty' }, { type: 'empty' }, { type: 'empty' }],
+    ],
+    // I-piece (3 blocks vertical)
+    [
+      [{ type: 'empty' }, { type: 'empty' }, { type: 'empty' }, { type: 'empty' }],
+      [{ type: 'filled', color: 'cyan' }, { type: 'empty' }, { type: 'empty' }, { type: 'empty' }],
+      [{ type: 'filled', color: 'cyan' }, { type: 'empty' }, { type: 'empty' }, { type: 'empty' }],
+      [{ type: 'filled', color: 'cyan' }, { type: 'empty' }, { type: 'empty' }, { type: 'empty' }],
+    ],
+  ];
+
+  return shapes[Math.floor(Math.random() * shapes.length)];
+}
+
+/**
  * Reset game state (keep all-time stats)
  */
 export async function resetGameState(userId: string): Promise<void> {
