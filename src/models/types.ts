@@ -115,10 +115,12 @@ export type StatsPersistenceData = {
 
 export type User = {
   id: string;
+  username: string;
   email: string;
   created_at: Date;
   updated_at: Date;
   last_login: Date | null;
+  last_active: Date | null;
 };
 
 export type UserSettings = {
@@ -141,6 +143,7 @@ export type UserSettings = {
 // ============================================================================
 
 export type RegisterRequest = {
+  username: string;
   email: string;
   password: string;
 };
@@ -173,6 +176,58 @@ export type RotateShapeRequest = {
 export type UnlockSlotRequest = {
   slotNumber: number;
   cost: number;
+};
+
+// ============================================================================
+// SESSION TYPES
+// ============================================================================
+
+// ============================================================================
+// PASSWORD RESET TYPES
+// ============================================================================
+
+export type PasswordResetToken = {
+  id: string;
+  user_id: string;
+  token_hash: string;
+  expires_at: Date;
+  created_at: Date;
+  used_at: Date | null;
+};
+
+export type ForgotPasswordRequest = {
+  email: string;
+};
+
+export type ResetPasswordRequest = {
+  token: string;
+  newPassword: string;
+};
+
+// ============================================================================
+// LEADERBOARD TYPES
+// ============================================================================
+
+export type LeaderboardEntry = {
+  username: string;
+  score: number;
+  rank: number;
+};
+
+export type PublicLeaderboardResponse = {
+  topPlayers: LeaderboardEntry[];
+  totalActivePlayers: number;
+};
+
+export type UserLeaderboardResponse = {
+  topPlayers: LeaderboardEntry[];
+  totalActivePlayers: number;
+  userRank: number;
+  userScore: number;
+  pointsToNextMilestone: {
+    milestone: string;
+    pointsNeeded: number;
+  } | null;
 };
 
 // ============================================================================

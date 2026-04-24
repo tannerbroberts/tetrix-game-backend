@@ -147,6 +147,12 @@ export async function saveGameState(
     fields.push(`updated_at = NOW()`);
     values.push(userId);
 
+    // Update last_active timestamp in users table
+    await client.query(
+      'UPDATE users SET last_active = NOW() WHERE id = $1',
+      [userId]
+    );
+
     if (existsResult.rows.length === 0) {
       // Insert new game state
       await client.query(

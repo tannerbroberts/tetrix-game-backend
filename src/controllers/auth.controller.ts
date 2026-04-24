@@ -6,17 +6,24 @@ import * as userService from '../services/userService';
  */
 export async function register(req: Request, res: Response): Promise<void> {
   try {
-    const { email, password } = req.body;
+    const { username, email, password } = req.body;
 
-    // Check if user already exists
-    const exists = await userService.emailExists(email);
-    if (exists) {
+    // Check if email already exists
+    const emailExists = await userService.emailExists(email);
+    if (emailExists) {
       res.status(409).json({ error: 'Email already registered' });
       return;
     }
 
+    // Check if username already exists
+    const usernameExists = await userService.usernameExists(username);
+    if (usernameExists) {
+      res.status(409).json({ error: 'Username already taken' });
+      return;
+    }
+
     // Create user
-    const user = await userService.createUser(email, password);
+    const user = await userService.createUser(username, email, password);
 
     // Create session
     req.session.userId = user.id;
@@ -32,6 +39,7 @@ export async function register(req: Request, res: Response): Promise<void> {
     res.status(201).json({
       user: {
         id: user.id,
+        username: user.username,
         email: user.email,
         createdAt: user.created_at,
       },
@@ -74,6 +82,7 @@ export async function login(req: Request, res: Response): Promise<void> {
     res.status(200).json({
       user: {
         id: user.id,
+        username: user.username,
         email: user.email,
         lastLogin: new Date(),
       },
@@ -122,6 +131,7 @@ export async function getCurrentUser(req: Request, res: Response): Promise<void>
     res.status(200).json({
       user: {
         id: user.id,
+        username: user.username,
         email: user.email,
         createdAt: user.created_at,
         lastLogin: user.last_login,

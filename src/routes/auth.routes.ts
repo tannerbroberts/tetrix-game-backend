@@ -1,8 +1,9 @@
 import { Router } from 'express';
 import * as authController from '../controllers/auth.controller';
+import * as passwordResetController from '../controllers/passwordReset.controller';
 import { validateBody } from '../middleware/validation';
 import { requireAuth } from '../middleware/auth';
-import { RegisterSchema, LoginSchema } from '../utils/schemas';
+import { RegisterSchema, LoginSchema, ForgotPasswordSchema, ResetPasswordSchema } from '../utils/schemas';
 
 const router = Router();
 
@@ -17,5 +18,11 @@ router.post('/logout', authController.logout);
 
 // GET /api/auth/me
 router.get('/me', requireAuth, authController.getCurrentUser);
+
+// POST /api/auth/forgot-password
+router.post('/forgot-password', validateBody(ForgotPasswordSchema), passwordResetController.requestPasswordReset);
+
+// POST /api/auth/reset-password
+router.post('/reset-password', validateBody(ResetPasswordSchema), passwordResetController.resetPassword);
 
 export default router;
