@@ -68,8 +68,14 @@ CREATE INDEX IF NOT EXISTS idx_password_reset_tokens_user ON password_reset_toke
 
 -- For existing users without username, generate from email
 -- This is safe for initial migration; new users must provide username
+-- Replace hyphens and dots with underscores to comply with username format
 UPDATE users
-SET username = SUBSTRING(email FROM '^([^@]+)') || '_' || SUBSTRING(CAST(id AS TEXT) FROM 1 FOR 8)
+SET username = REGEXP_REPLACE(
+  SUBSTRING(email FROM '^([^@]+)') || '_' || SUBSTRING(CAST(id AS TEXT) FROM 1 FOR 8),
+  '[^a-zA-Z0-9_]',
+  '_',
+  'g'
+)
 WHERE username IS NULL;
 
 -- Set last_active to last_login for existing users
