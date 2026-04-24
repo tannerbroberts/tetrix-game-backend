@@ -213,12 +213,14 @@ SESSION_SECRET=$(openssl rand -hex 32)
 # Environment
 NODE_ENV=production
 
-# Frontend URL (for CORS)
-FRONTEND_URL=https://your-frontend-service.up.railway.app
+# Frontend URL (for CORS) - CRITICAL: Must match frontend domain exactly
+FRONTEND_URL=https://tetrix-game-frontend-production.up.railway.app
 
 # Database URL (automatically set by Railway)
 # DATABASE_URL=postgresql://...
 ```
+
+⚠️ **CRITICAL**: The `FRONTEND_URL` must exactly match the frontend Railway URL. If this is wrong or missing, all API calls will fail with CORS errors and users will see "Unexpected token '<'" JSON errors.
 
 **Railway Configuration** (`railway.json`):
 
@@ -302,13 +304,13 @@ railway shell
 
 ### Environment Variables Reference
 
-| Variable | Purpose | Set By | Required |
-|----------|---------|--------|----------|
-| `DATABASE_URL` | PostgreSQL connection string | Railway (auto) | ✅ |
-| `SESSION_SECRET` | Session encryption key | Manual | ✅ |
-| `NODE_ENV` | Environment mode | Manual | ✅ |
-| `PORT` | Server port | Railway (auto) | ✅ |
-| `FRONTEND_URL` | Frontend origin for CORS | Manual | ✅ |
+| Variable | Purpose | Set By | Required | Example |
+|----------|---------|--------|----------|---------|
+| `DATABASE_URL` | PostgreSQL connection string | Railway (auto) | ✅ | `postgresql://...` |
+| `SESSION_SECRET` | Session encryption key | Manual | ✅ | (generate with openssl) |
+| `NODE_ENV` | Environment mode | Manual | ✅ | `production` |
+| `PORT` | Server port | Railway (auto) | ✅ | `3000` |
+| `FRONTEND_URL` | Frontend origin for CORS | Manual | ✅ | `https://tetrix-game-frontend-production.up.railway.app` |
 
 ### Continuous Deployment
 

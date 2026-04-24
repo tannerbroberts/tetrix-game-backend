@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const BASE_URL = process.env.BASE_URL || 'https://humorous-education-production-b86a.up.railway.app';
+const BASE_URL = process.env.BASE_URL || 'https://tetrix-game-frontend-production.up.railway.app';
 
 test.describe('Production Smoke Tests', () => {
   test.beforeEach(async ({ context, page }) => {

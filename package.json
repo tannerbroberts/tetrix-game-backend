@@ -11,8 +11,8 @@
     "dev": "tsx watch src/index.ts",
     "migrate": "tsx src/db/migrations/migrate.ts",
     "test": "playwright test",
-    "test:smoke": "BASE_URL=https://humorous-education-production-b86a.up.railway.app playwright test tests/smoke-test.spec.ts",
-    "test:smoke:headed": "BASE_URL=https://humorous-education-production-b86a.up.railway.app playwright test tests/smoke-test.spec.ts --headed",
+    "test:smoke": "BASE_URL=https://tetrix-game-frontend-production.up.railway.app playwright test tests/smoke-test.spec.ts",
+    "test:smoke:headed": "BASE_URL=https://tetrix-game-frontend-production.up.railway.app playwright test tests/smoke-test.spec.ts --headed",
     "seed:test-user": "tsx src/scripts/seed-test-user.ts"
   },
   "keywords": [
