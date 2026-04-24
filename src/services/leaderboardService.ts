@@ -10,8 +10,8 @@ export async function getPublicLeaderboard(): Promise<PublicLeaderboardResponse>
   const topPlayersResult = await pool.query(
     `SELECT
        u.username,
-       COALESCE((s.high_score_stats->>'points'->>'total')::INTEGER, 0) as score,
-       ROW_NUMBER() OVER (ORDER BY COALESCE((s.high_score_stats->>'points'->>'total')::INTEGER, 0) DESC) as rank
+       COALESCE((s.high_score_stats->'points'->>'total')::INTEGER, 0) as score,
+       ROW_NUMBER() OVER (ORDER BY COALESCE((s.high_score_stats->'points'->>'total')::INTEGER, 0) DESC) as rank
      FROM users u
      LEFT JOIN statistics s ON s.user_id = u.id
      WHERE u.last_active IS NOT NULL
@@ -47,8 +47,8 @@ export async function getUserLeaderboard(userId: string): Promise<UserLeaderboar
   const topPlayersResult = await pool.query(
     `SELECT
        u.username,
-       COALESCE((s.high_score_stats->>'points'->>'total')::INTEGER, 0) as score,
-       ROW_NUMBER() OVER (ORDER BY COALESCE((s.high_score_stats->>'points'->>'total')::INTEGER, 0) DESC) as rank
+       COALESCE((s.high_score_stats->'points'->>'total')::INTEGER, 0) as score,
+       ROW_NUMBER() OVER (ORDER BY COALESCE((s.high_score_stats->'points'->>'total')::INTEGER, 0) DESC) as rank
      FROM users u
      LEFT JOIN statistics s ON s.user_id = u.id
      WHERE u.last_active IS NOT NULL
@@ -62,8 +62,8 @@ export async function getUserLeaderboard(userId: string): Promise<UserLeaderboar
        SELECT
          u.id,
          u.username,
-         COALESCE((s.high_score_stats->>'points'->>'total')::INTEGER, 0) as score,
-         ROW_NUMBER() OVER (ORDER BY COALESCE((s.high_score_stats->>'points'->>'total')::INTEGER, 0) DESC, u.created_at ASC) as rank
+         COALESCE((s.high_score_stats->'points'->>'total')::INTEGER, 0) as score,
+         ROW_NUMBER() OVER (ORDER BY COALESCE((s.high_score_stats->'points'->>'total')::INTEGER, 0) DESC, u.created_at ASC) as rank
        FROM users u
        LEFT JOIN statistics s ON s.user_id = u.id
        WHERE u.last_active IS NOT NULL
