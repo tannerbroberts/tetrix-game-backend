@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import * as gameStateService from '../services/gameStateService';
 import * as placementValidator from '../services/placementValidator';
+import { processShapePlacement, PlacementError } from '../services/gameEngine';
 
 /**
  * Load game state for current user
@@ -245,6 +246,31 @@ export async function resetGame(req: Request, res: Response): Promise<void> {
   } catch (error) {
     console.error('Reset game error:', error);
     res.status(500).json({ error: 'Failed to reset game' });
+  }
+}
+
+/**
+ * New server-authoritative placement endpoint
+ */
+export async function placeShapeV2(req: Request, res: Response): Promise<void> {
+  try {
+    const userId = req.userId!;
+    const { shapeId, x, y, rotation } = req.body;
+
+    const result = await processShapePlacement(userId, { shapeId, x, y, rotation });
+
+    res.status(200).json(result);
+  } catch (error) {
+    if (error instanceof PlacementError) {
+      res.status(error.statusCode).json({
+        error: error.message,
+        code: error.code,
+      });
+      return;
+    }
+
+    console.error('Place shape v2 error:', error);
+    res.status(500).json({ error: 'Failed to place shape' });
   }
 }
 

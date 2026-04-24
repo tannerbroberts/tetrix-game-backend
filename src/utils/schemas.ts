@@ -77,6 +77,17 @@ export const PlaceShapeSchema = z.object({
   shapeIndex: z.number().int().min(0).max(3),
 });
 
+// New schema for server-authoritative placement
+export const PlaceShapeRequestSchema = z.object({
+  shapeId: z.number().int().nonnegative(),
+  x: z.number().int().min(0).max(9), // Row index (0-9)
+  y: z.number().int().min(0).max(9), // Column index (0-9)
+  rotation: z.number().int().refine(
+    (val) => [0, 90, 180, 270].includes(val),
+    { message: 'Rotation must be 0, 90, 180, or 270' }
+  ),
+});
+
 export const RotateShapeSchema = z.object({
   shapeIndex: z.number().int().min(0).max(3),
   clockwise: z.boolean(),

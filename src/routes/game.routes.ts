@@ -4,6 +4,7 @@ import { validateBody } from '../middleware/validation';
 import { requireAuth } from '../middleware/auth';
 import {
   PlaceShapeSchema,
+  PlaceShapeRequestSchema,
   RotateShapeSchema,
   UnlockSlotSchema,
   SaveGameStateSchema,
@@ -20,8 +21,11 @@ router.get('/state', gameController.getGameState);
 // POST /api/game/state
 router.post('/state', validateBody(SaveGameStateSchema), gameController.saveGameState);
 
-// POST /api/game/place-shape
+// POST /api/game/place-shape (old client-side logic)
 router.post('/place-shape', validateBody(PlaceShapeSchema), gameController.placeShape);
+
+// POST /api/game/place-shape-v2 (new server-authoritative)
+router.post('/place-shape-v2', validateBody(PlaceShapeRequestSchema), gameController.placeShapeV2);
 
 // POST /api/game/rotate-shape
 router.post('/rotate-shape', validateBody(RotateShapeSchema), gameController.rotateShape);

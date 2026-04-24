@@ -24,6 +24,7 @@ async function main() {
     // Run migrations in order
     await runMigration('001_initial_schema.sql');
     await runMigration('002_add_username_and_password_reset.sql');
+    await runMigration('003_add_shape_id_counter.sql');
 
     console.log('\n✅ All migrations completed successfully!');
     process.exit(0);
