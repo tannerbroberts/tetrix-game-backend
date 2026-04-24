@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- 
+    Gem Design: 4 non-overlapping triangles meeting at the center (pyramid style).
+    Colors: Based on React BlockVisual light mode palette.
+    Layout: 3x3 Grid, T-shape.
+    Cell Size: 100px base, scaled by 1.7 = 170px.
+  -->
+
+  <!-- Top Left: Red -->
+  <g transform="translate(1, 1) scale(1.7)">
+    <!-- Top -->
+    <polygon points="0,0 100,0 50,50" fill="#e54d4e" />
+    <!-- Right -->
+    <polygon points="100,0 100,100 50,50" fill="#c42526" />
+    <!-- Bottom -->
+    <polygon points="100,100 0,100 50,50" fill="#b01b1c" />
+    <!-- Left -->
+    <polygon points="0,100 0,0 50,50" fill="#dd3e3f" />
+  </g>
+
+  <!-- Top Center: Orange -->
+  <g transform="translate(171, 1) scale(1.7)">
+    <polygon points="0,0 100,0 50,50" fill="#ff993d" />
+    <polygon points="100,0 100,100 50,50" fill="#e86f0d" />
+    <polygon points="100,100 0,100 50,50" fill="#d16006" />
+    <polygon points="0,100 0,0 50,50" fill="#ff8c26" />
+  </g>
+
+  <!-- Top Right: Green -->
+  <g transform="translate(341, 1) scale(1.7)">
+    <polygon points="0,0 100,0 50,50" fill="#4cc061" />
+    <polygon points="100,0 100,100 50,50" fill="#258c3b" />
+    <polygon points="100,100 0,100 50,50" fill="#1b7a32" />
+    <polygon points="0,100 0,0 50,50" fill="#3eb053" />
+  </g>
+
+  <!-- Middle Center: Blue -->
+  <g transform="translate(171, 171) scale(1.7)">
+    <polygon points="0,0 100,0 50,50" fill="#2b5fa3" />
+    <polygon points="100,0 100,100 50,50" fill="#00306b" />
+    <polygon points="100,100 0,100 50,50" fill="#002352" />
+    <polygon points="0,100 0,0 50,50" fill="#184f94" />
+  </g>
+
+  <!-- Bottom Center: Purple -->
+  <g transform="translate(171, 341) scale(1.7)">
+    <polygon points="0,0 100,0 50,50" fill="#9673ff" />
+    <polygon points="100,0 100,100 50,50" fill="#6840e0" />
+    <polygon points="100,100 0,100 50,50" fill="#5832cc" />
+    <polygon points="0,100 0,0 50,50" fill="#8863ff" />
+  </g>
+</svg>

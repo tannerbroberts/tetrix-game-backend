@@ -1,0 +1,688 @@
+{
+  "width": 7,
+  "height": 5,
+  "tiles": [
+    "R1C2",
+    "R1C3",
+    "R1C4",
+    "R1C5",
+    "R1C6",
+    "R1C7",
+    "R2C1",
+    "R2C2",
+    "R2C3",
+    "R2C4",
+    "R2C5",
+    "R2C6",
+    "R3C6",
+    "R3C7",
+    "R2C7",
+    "R3C5",
+    "R4C5",
+    "R4C4",
+    "R3C3",
+    "R3C2",
+    "R4C1",
+    "R4C2",
+    "R4C3",
+    "R3C4",
+    "R3C1",
+    "R5C5",
+    "R5C4",
+    "R5C3",
+    "R5C2",
+    "R5C1",
+    "R4C6",
+    "R4C7"
+  ],
+  "tileBackgrounds": [
+    [
+      "R1C2",
+      "red"
+    ],
+    [
+      "R1C3",
+      "red"
+    ],
+    [
+      "R1C4",
+      "red"
+    ],
+    [
+      "R1C5",
+      "red"
+    ],
+    [
+      "R1C6",
+      "red"
+    ],
+    [
+      "R1C7",
+      "red"
+    ],
+    [
+      "R2C1",
+      "red"
+    ],
+    [
+      "R2C2",
+      "red"
+    ],
+    [
+      "R2C3",
+      "red"
+    ],
+    [
+      "R2C4",
+      "red"
+    ],
+    [
+      "R2C5",
+      "red"
+    ],
+    [
+      "R2C6",
+      "red"
+    ],
+    [
+      "R3C6",
+      "red"
+    ],
+    [
+      "R3C7",
+      "red"
+    ],
+    [
+      "R2C7",
+      "red"
+    ],
+    [
+      "R3C5",
+      "red"
+    ],
+    [
+      "R4C5",
+      "grey"
+    ],
+    [
+      "R4C4",
+      "grey"
+    ],
+    [
+      "R3C3",
+      "red"
+    ],
+    [
+      "R3C2",
+      "red"
+    ],
+    [
+      "R4C1",
+      "red"
+    ],
+    [
+      "R4C2",
+      "red"
+    ],
+    [
+      "R4C3",
+      "red"
+    ],
+    [
+      "R3C4",
+      "red"
+    ],
+    [
+      "R3C1",
+      "red"
+    ],
+    [
+      "R5C5",
+      "grey"
+    ],
+    [
+      "R5C4",
+      "grey"
+    ],
+    [
+      "R5C3",
+      "grey"
+    ],
+    [
+      "R5C2",
+      "grey"
+    ],
+    [
+      "R5C1",
+      "grey"
+    ],
+    [
+      "R4C6",
+      "green"
+    ],
+    [
+      "R4C7",
+      "grey"
+    ]
+  ],
+  "shapes": [
+    [
+      [
+        {
+          "color": "green",
+          "isFilled": false
+        },
+        {
+          "color": "red",
+          "isFilled": true
+        },
+        {
+          "color": "red",
+          "isFilled": true
+        },
+        {
+          "color": "grey",
+          "isFilled": false
+        }
+      ],
+      [
+        {
+          "color": "yellow",
+          "isFilled": false
+        },
+        {
+          "color": "green",
+          "isFilled": false
+        },
+        {
+          "color": "red",
+          "isFilled": true
+        },
+        {
+          "color": "purple",
+          "isFilled": false
+        }
+      ],
+      [
+        {
+          "color": "red",
+          "isFilled": false
+        },
+        {
+          "color": "orange",
+          "isFilled": false
+        },
+        {
+          "color": "red",
+          "isFilled": true
+        },
+        {
+          "color": "orange",
+          "isFilled": false
+        }
+      ],
+      [
+        {
+          "color": "red",
+          "isFilled": false
+        },
+        {
+          "color": "red",
+          "isFilled": false
+        },
+        {
+          "color": "yellow",
+          "isFilled": false
+        },
+        {
+          "color": "green",
+          "isFilled": false
+        }
+      ]
+    ],
+    [
+      [
+        {
+          "color": "purple",
+          "isFilled": false
+        },
+        {
+          "color": "purple",
+          "isFilled": false
+        },
+        {
+          "color": "red",
+          "isFilled": false
+        },
+        {
+          "color": "yellow",
+          "isFilled": false
+        }
+      ],
+      [
+        {
+          "color": "green",
+          "isFilled": false
+        },
+        {
+          "color": "red",
+          "isFilled": true
+        },
+        {
+          "color": "red",
+          "isFilled": true
+        },
+        {
+          "color": "yellow",
+          "isFilled": false
+        }
+      ],
+      [
+        {
+          "color": "red",
+          "isFilled": false
+        },
+        {
+          "color": "red",
+          "isFilled": true
+        },
+        {
+          "color": "red",
+          "isFilled": true
+        },
+        {
+          "color": "grey",
+          "isFilled": false
+        }
+      ],
+      [
+        {
+          "color": "blue",
+          "isFilled": false
+        },
+        {
+          "color": "red",
+          "isFilled": true
+        },
+        {
+          "color": "red",
+          "isFilled": true
+        },
+        {
+          "color": "purple",
+          "isFilled": false
+        }
+      ]
+    ],
+    [
+      [
+        {
+          "color": "grey",
+          "isFilled": false
+        },
+        {
+          "color": "purple",
+          "isFilled": false
+        },
+        {
+          "color": "purple",
+          "isFilled": false
+        },
+        {
+          "color": "purple",
+          "isFilled": false
+        }
+      ],
+      [
+        {
+          "color": "orange",
+          "isFilled": false
+        },
+        {
+          "color": "red",
+          "isFilled": true
+        },
+        {
+          "color": "red",
+          "isFilled": true
+        },
+        {
+          "color": "grey",
+          "isFilled": false
+        }
+      ],
+      [
+        {
+          "color": "grey",
+          "isFilled": false
+        },
+        {
+          "color": "red",
+          "isFilled": true
+        },
+        {
+          "color": "red",
+          "isFilled": true
+        },
+        {
+          "color": "blue",
+          "isFilled": false
+        }
+      ],
+      [
+        {
+          "color": "red",
+          "isFilled": false
+        },
+        {
+          "color": "blue",
+          "isFilled": false
+        },
+        {
+          "color": "blue",
+          "isFilled": false
+        },
+        {
+          "color": "green",
+          "isFilled": false
+        }
+      ]
+    ],
+    [
+      [
+        {
+          "color": "grey",
+          "isFilled": false
+        },
+        {
+          "color": "purple",
+          "isFilled": false
+        },
+        {
+          "color": "purple",
+          "isFilled": false
+        },
+        {
+          "color": "purple",
+          "isFilled": false
+        }
+      ],
+      [
+        {
+          "color": "orange",
+          "isFilled": false
+        },
+        {
+          "color": "red",
+          "isFilled": true
+        },
+        {
+          "color": "red",
+          "isFilled": true
+        },
+        {
+          "color": "grey",
+          "isFilled": false
+        }
+      ],
+      [
+        {
+          "color": "grey",
+          "isFilled": false
+        },
+        {
+          "color": "red",
+          "isFilled": true
+        },
+        {
+          "color": "red",
+          "isFilled": true
+        },
+        {
+          "color": "blue",
+          "isFilled": false
+        }
+      ],
+      [
+        {
+          "color": "red",
+          "isFilled": false
+        },
+        {
+          "color": "blue",
+          "isFilled": false
+        },
+        {
+          "color": "blue",
+          "isFilled": false
+        },
+        {
+          "color": "green",
+          "isFilled": false
+        }
+      ]
+    ],
+    [
+      [
+        {
+          "color": "grey",
+          "isFilled": false
+        },
+        {
+          "color": "purple",
+          "isFilled": false
+        },
+        {
+          "color": "purple",
+          "isFilled": false
+        },
+        {
+          "color": "purple",
+          "isFilled": false
+        }
+      ],
+      [
+        {
+          "color": "orange",
+          "isFilled": false
+        },
+        {
+          "color": "red",
+          "isFilled": true
+        },
+        {
+          "color": "red",
+          "isFilled": true
+        },
+        {
+          "color": "grey",
+          "isFilled": false
+        }
+      ],
+      [
+        {
+          "color": "grey",
+          "isFilled": false
+        },
+        {
+          "color": "green",
+          "isFilled": true
+        },
+        {
+          "color": "grey",
+          "isFilled": true
+        },
+        {
+          "color": "blue",
+          "isFilled": false
+        }
+      ],
+      [
+        {
+          "color": "red",
+          "isFilled": false
+        },
+        {
+          "color": "blue",
+          "isFilled": false
+        },
+        {
+          "color": "blue",
+          "isFilled": false
+        },
+        {
+          "color": "green",
+          "isFilled": false
+        }
+      ]
+    ],
+    [
+      [
+        {
+          "color": "blue",
+          "isFilled": false
+        },
+        {
+          "color": "red",
+          "isFilled": false
+        },
+        {
+          "color": "green",
+          "isFilled": false
+        },
+        {
+          "color": "purple",
+          "isFilled": false
+        }
+      ],
+      [
+        {
+          "color": "red",
+          "isFilled": true
+        },
+        {
+          "color": "red",
+          "isFilled": true
+        },
+        {
+          "color": "red",
+          "isFilled": true
+        },
+        {
+          "color": "purple",
+          "isFilled": false
+        }
+      ],
+      [
+        {
+          "color": "grey",
+          "isFilled": true
+        },
+        {
+          "color": "grey",
+          "isFilled": true
+        },
+        {
+          "color": "grey",
+          "isFilled": true
+        },
+        {
+          "color": "red",
+          "isFilled": false
+        }
+      ],
+      [
+        {
+          "color": "purple",
+          "isFilled": false
+        },
+        {
+          "color": "grey",
+          "isFilled": false
+        },
+        {
+          "color": "yellow",
+          "isFilled": false
+        },
+        {
+          "color": "yellow",
+          "isFilled": false
+        }
+      ]
+    ],
+    [
+      [
+        {
+          "color": "grey",
+          "isFilled": false
+        },
+        {
+          "color": "purple",
+          "isFilled": false
+        },
+        {
+          "color": "purple",
+          "isFilled": false
+        },
+        {
+          "color": "purple",
+          "isFilled": false
+        }
+      ],
+      [
+        {
+          "color": "orange",
+          "isFilled": false
+        },
+        {
+          "color": "grey",
+          "isFilled": true
+        },
+        {
+          "color": "grey",
+          "isFilled": true
+        },
+        {
+          "color": "grey",
+          "isFilled": false
+        }
+      ],
+      [
+        {
+          "color": "grey",
+          "isFilled": false
+        },
+        {
+          "color": "grey",
+          "isFilled": true
+        },
+        {
+          "color": "grey",
+          "isFilled": true
+        },
+        {
+          "color": "blue",
+          "isFilled": false
+        }
+      ],
+      [
+        {
+          "color": "red",
+          "isFilled": false
+        },
+        {
+          "color": "blue",
+          "isFilled": false
+        },
+        {
+          "color": "blue",
+          "isFilled": false
+        },
+        {
+          "color": "green",
+          "isFilled": false
+        }
+      ]
+    ]
+  ]
+}

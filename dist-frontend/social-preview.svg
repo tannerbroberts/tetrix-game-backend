@@ -1,0 +1,55 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#16213e;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="blockGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4fd1c7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  
+  <!-- Grid lines (subtle) -->
+  <g stroke="#ffffff" stroke-width="1" stroke-opacity="0.1" fill="none">
+    <!-- Vertical lines every 64px starting from center -->
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="536" y1="0" x2="536" y2="630"/>
+    <line x1="472" y1="0" x2="472" y2="630"/>
+    <line x1="408" y1="0" x2="408" y2="630"/>
+    <line x1="344" y1="0" x2="344" y2="630"/>
+    <line x1="664" y1="0" x2="664" y2="630"/>
+    <line x1="728" y1="0" x2="728" y2="630"/>
+    <line x1="792" y1="0" x2="792" y2="630"/>
+    <line x1="856" y1="0" x2="856" y2="630"/>
+    
+    <!-- Horizontal lines every 64px -->
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="251" x2="1200" y2="251"/>
+    <line x1="0" y1="187" x2="1200" y2="187"/>
+    <line x1="0" y1="379" x2="1200" y2="379"/>
+    <line x1="0" y1="443" x2="1200" y2="443"/>
+    <line x1="0" y1="507" x2="1200" y2="507"/>
+  </g>
+  
+  <!-- Tetris blocks forming a "T" shape -->
+  <!-- Block size 80px -->
+  <!-- Top horizontal bar of T (4 blocks) -->
+  <!-- Centered at 600. Width 320. Starts at 440. Y at 250. -->
+  <rect x="440" y="250" width="80" height="80" fill="url(#blockGradient)" stroke="#ffffff" stroke-width="2"/>
+  <rect x="520" y="250" width="80" height="80" fill="url(#blockGradient)" stroke="#ffffff" stroke-width="2"/>
+  <rect x="600" y="250" width="80" height="80" fill="url(#blockGradient)" stroke="#ffffff" stroke-width="2"/>
+  <rect x="680" y="250" width="80" height="80" fill="url(#blockGradient)" stroke="#ffffff" stroke-width="2"/>
+  
+  <!-- Vertical part of T (2 blocks) -->
+  <!-- Centered at 600. Width 80. Starts at 560. Y starts at 330. -->
+  <rect x="560" y="330" width="80" height="80" fill="url(#blockGradient)" stroke="#ffffff" stroke-width="2"/>
+  <rect x="560" y="410" width="80" height="80" fill="url(#blockGradient)" stroke="#ffffff" stroke-width="2"/>
+  
+  <!-- Title -->
+  <text x="600" y="180" font-family="Arial, sans-serif" font-size="80" font-weight="bold" text-anchor="middle" fill="#4fd1c7">TETRIX</text>
+  <text x="600" y="550" font-family="Arial, sans-serif" font-size="32" fill="#eeeeee" text-anchor="middle" opacity="0.8">Free Relaxing Puzzle Game</text>
+</svg>

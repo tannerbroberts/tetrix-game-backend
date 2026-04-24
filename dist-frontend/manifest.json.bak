@@ -1,0 +1,45 @@
+{
+  "name": "Tetrix - Free Relaxing Puzzle Game",
+  "short_name": "Tetrix",
+  "description": "A free, ad-free relaxing puzzle game. Drag and drop shapes, clear lines, and enjoy infinite gameplay with no interruptions. Perfect for casual gaming and brain training.",
+  "start_url": "/",
+  "display": "fullscreen",
+  "background_color": "#1a1a2e",
+  "theme_color": "#4fd1c7",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    }
+  ],
+  "categories": [
+    "games",
+    "entertainment"
+  ],
+  "lang": "en-US"
+}

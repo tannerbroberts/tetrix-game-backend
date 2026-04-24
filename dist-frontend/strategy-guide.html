@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tetrix Strategy Guide - Game Rules & Tips</title>
+    
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="Tetrix Strategy Guide - Game Rules & Tips" />
+    <meta name="description" content="Master Tetrix with our strategy guide! Learn advanced line clearing mechanics, shape rotation tips, and scoring strategies to maximize your high score." />
+    <meta name="keywords" content="tetrix strategy, tetrix guide, tetrix tips, how to play tetrix, tetrix rules, puzzle game strategy" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://tetrix-game.github.io/strategy-guide.html" />
+    <meta property="og:title" content="Tetrix Strategy Guide - Game Rules & Tips" />
+    <meta property="og:description" content="Master Tetrix with our strategy guide! Learn advanced line clearing mechanics, shape rotation tips, and scoring strategies." />
+    <meta property="og:image" content="https://tetrix-game.github.io/assets/SocialScreen.png" />
+    <meta property="og:site_name" content="Tetrix Game" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://tetrix-game.github.io/strategy-guide.html" />
+    <meta property="twitter:title" content="Tetrix Strategy Guide - Game Rules & Tips" />
+    <meta property="twitter:description" content="Master Tetrix with our strategy guide! Learn advanced line clearing mechanics, shape rotation tips, and scoring strategies." />
+    <meta property="twitter:image" content="https://tetrix-game.github.io/assets/SocialScreen.png" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://tetrix-game.github.io/strategy-guide.html" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    
+    <style>
+      * {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      
+      body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 2rem;
+        line-height: 1.6;
+      }
+      
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 12px;
+        padding: 3rem;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        position: relative;
+      }
+      
+      h1 {
+        color: #333;
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+      }
+      
+      .intro-text {
+        color: #666;
+        font-size: 1.15rem;
+        text-align: center;
+        margin-bottom: 2rem;
+        line-height: 1.7;
+      }
+      
+      h2 {
+        color: #333;
+        font-size: 1.5rem;
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
+        text-align: center;
+        font-weight: 600;
+        line-height: 1.4;
+      }
+      
+      .section-description {
+        color: #666;
+        font-size: 1.05rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.7;
+        text-align: left;
+      }
+      
+      .section-description ul {
+        margin-left: 1.5rem;
+        margin-top: 0.5rem;
+      }
+      
+      .section-description li {
+        margin-bottom: 0.5rem;
+      }
+      
+      .section-description strong {
+        color: #333;
+        font-weight: 600;
+      }
+      
+      .tutorial-media {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
+      
+      .tutorial-media img {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border: 2px solid #eee;
+      }
+      
+      p {
+        color: #666;
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+      }
+      
+      .back-link {
+        position: absolute;
+        top: 1.5rem;
+        left: 1.5rem;
+        padding: 10px 20px;
+        background: #667eea;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        transition: background 0.3s ease;
+      }
+      
+      .back-link:hover {
+        background: #5568d3;
+      }
+      
+      .emoji {
+        font-size: 1.3rem;
+      }
+      
+      @media (max-width: 768px) {
+        body {
+          padding: 1rem;
+        }
+        
+        .container {
+          padding: 1.5rem;
+          padding-top: 4rem;
+        }
+        
+        h1 {
+          font-size: 2rem;
+        }
+        
+        .intro-text {
+          font-size: 1rem;
+        }
+        
+        h2 {
+          font-size: 1.25rem;
+        }
+        
+        .section-description {
+          font-size: 0.95rem;
+        }
+        
+        .back-link {
+          top: 1rem;
+          left: 1rem;
+          padding: 8px 16px;
+          font-size: 0.9rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <a href="index.html" class="back-link">← Back to Game</a>
+      
+      <h1>Tetrix Strategy Guide</h1>
+      
+      <p class="intro-text">
+        Tetrix is a relaxing block puzzle game where you drag and drop colorful shapes onto a 10×10 grid. 
+        Clear complete rows and columns to score points, unlock shape rotation abilities, and keep the puzzle going. 
+        There's no time limit—take your time, think strategically, and enjoy the satisfying gameplay!
+      </p>
+      
+      <h2>Drag & Drop</h2>
+      <div class="tutorial-media">
+        <img src="/assets/DragAndDrop.gif" alt="Drag and drop demonstration">
+      </div>
+      <div class="section-description">
+        <p>At the bottom of the screen, you'll see your <strong>Shape Queue</strong> with three colorful shapes ready to use. 
+        To play, simply click and hold any shape to pick it up and start dragging. The shapes come in various Tetris-like configurations.</p>
+        <p><strong>Key controls:</strong></p>
+        <ul>
+          <li><strong>Click and hold</strong> on any shape to grab it</li>
+          <li><strong>Drag</strong> the shape onto the 10x10 grid</li>
+          <li><strong>Release</strong> to place the shape permanently</li>
+          <li>Valid placements appear bright; invalid ones appear faded</li>
+        </ul>
+      </div>
+      
+      <h2>Clear Lines</h2>
+      <div class="tutorial-media">
+        <img src="/assets/Get10InARow.gif" alt="Clear lines demonstration">
+      </div>
+      <div class="section-description">
+        <p>The core mechanic of Tetrix is <strong>line clearing</strong>. When you completely fill any row (horizontal) or 
+        column (vertical) with blocks, that entire line disappears! This is how you prevent the grid from filling up and 
+        create space for more shapes.</p>
+        <p><strong>Line clearing mechanics:</strong></p>
+        <ul>
+          <li><strong>Complete rows:</strong> Fill all 10 blocks horizontally across any row to clear it</li>
+          <li><strong>Complete columns:</strong> Fill all 10 blocks vertically down any column to clear it</li>
+          <li><strong>Visual feedback:</strong> Watch lines highlight and disappear with satisfying animations</li>
+        </ul>
+      </div>
+      
+      <h2>Combo Bonuses</h2>
+      <div class="tutorial-media">
+        <img src="/assets/ClearUpTo4LinesInARow.gif" alt="Combo bonus demonstration">
+      </div>
+      <div class="section-description">
+        <p>Every time you clear lines, you earn <strong>points</strong> shown as animated blue gems. 
+        The more lines you clear simultaneously, the exponentially higher your score! Watch as an animated "gem shower" 
+        celebrates your achievement.</p>
+        <p><strong>Scoring system:</strong></p>
+        <ul>
+          <li><strong>Score formula:</strong> Points = (rows)² + (columns)² + (rows × columns × 2)</li>
+          <li><strong>Combo multipliers:</strong> Clearing 2+ lines at once gives exponentially more points</li>
+          <li><strong>Score display:</strong> Your score and gem count appear in the header</li>
+        </ul>
+      </div>
+      
+      <h2>Rotate Shapes</h2>
+      <div class="tutorial-media">
+        <img src="/assets/TurnShapes.gif" alt="Rotate shapes demonstration">
+      </div>
+      <div class="section-description">
+        <p>Sometimes a shape doesn't quite fit the way you want it. That's where <strong>shape rotation</strong> comes in! 
+        You can spend gems to unlock the ability to rotate shapes, giving you more strategic options for fitting pieces 
+        into tight spaces.</p>
+        <p><strong>Rotation system:</strong></p>
+        <ul>
+          <li><strong>Unlock rotation:</strong> Click the 🔄 button on any shape to spend 1 gem and unlock rotation</li>
+          <li><strong>Rotate:</strong> After unlocking, click ↻ or ↺ to rotate 90°</li>
+          <li><strong>One-time cost:</strong> Pay once per shape, then rotate it as many times as you want</li>
+        </ul>
+      </div>
+      
+      <h2>Game Over & New Game</h2>
+      <div class="section-description">
+        <p>If the grid fills up and none of your shapes can fit anywhere, it's <strong>game over</strong>—but don't worry! 
+        You can always start fresh. The hamburger menu in the top-right corner gives you access to game controls and settings.</p>
+        <p><strong>Tips for success:</strong></p>
+        <ul>
+          <li>Plan ahead and try to keep the grid balanced</li>
+          <li>Don't focus too much on one area—spread shapes across the grid</li>
+          <li>Save rotation gems for critical moments</li>
+          <li>Try to set up multi-line clears for maximum points</li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
