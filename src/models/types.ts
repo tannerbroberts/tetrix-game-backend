@@ -116,9 +116,9 @@ export type StatsPersistenceData = {
 export type User = {
   id: string;
   email: string;
-  createdAt: Date;
-  updatedAt: Date;
-  lastLogin: Date | null;
+  created_at: Date;
+  updated_at: Date;
+  last_login: Date | null;
 };
 
 export type UserSettings = {
