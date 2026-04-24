@@ -1,4 +1,4 @@
-import type { TileData, SerializedQueueItem, Location, ColorName } from '../../models/types';
+import type { TileData, SerializedQueueItem, Location, ColorName, Shape } from '../../models/types';
 import { loadGameState, saveGameState } from '../gameStateService';
 import { rotateShape } from './shapeRotation';
 import { isValidPlacement, getShapeBlocks } from './shapeValidation';
@@ -6,6 +6,7 @@ import { clearFullLines } from './lineClearing';
 import { calculateScore } from './scoring';
 import { generateRandomShape } from './shapeGeneration';
 import { checkGameOver } from './gameOverDetection';
+import { isCompactShape, unpackShape } from '../../utils/bytePacking';
 
 /**
  * Request format for placing a shape
@@ -127,7 +128,9 @@ export async function processShapePlacement(
 
   // 3. Apply rotation
   const location: Location = { row: request.x, column: request.y };
-  const rotatedShape = rotateShape(shapeData.shape, request.rotation);
+  // Unpack compact shape if needed
+  const shape: Shape = isCompactShape(shapeData.shape) ? unpackShape(shapeData.shape) : shapeData.shape;
+  const rotatedShape = rotateShape(shape, request.rotation);
 
   // 4. Validate placement (bounds + collision)
   const isValid = isValidPlacement(rotatedShape, location, gameState.tiles);

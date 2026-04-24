@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import * as gameStateService from '../services/gameStateService';
 import * as placementValidator from '../services/placementValidator';
 import { processShapePlacement, PlacementError } from '../services/gameEngine';
+import { isCompactShape, unpackShape } from '../utils/bytePacking';
+import type { Shape } from '../models/types';
 
 /**
  * Load game state for current user
@@ -149,7 +151,8 @@ export async function rotateShape(req: Request, res: Response): Promise<void> {
     }
 
     // Rotate the shape (simplified - full impl would copy frontend logic)
-    const shape = queueItem.shape;
+    // Unpack compact shape if needed
+    const shape: Shape = isCompactShape(queueItem.shape) ? unpackShape(queueItem.shape) : queueItem.shape;
     const rotatedShape = clockwise ? rotateShapeClockwise(shape) : rotateShapeCounterClockwise(shape);
 
     // Update queue
@@ -271,6 +274,156 @@ export async function placeShapeV2(req: Request, res: Response): Promise<void> {
 
     console.error('Place shape v2 error:', error);
     res.status(500).json({ error: 'Failed to place shape' });
+  }
+}
+
+/**
+ * Server-authoritative shape placement (minimal request)
+ * POST /api/game/state with {shapeId, x, y, useCompactFormat?}
+ */
+export async function placeShapeMinimal(req: Request, res: Response): Promise<void> {
+  try {
+    const userId = req.userId!;
+    const { shapeId, x, y, useCompactFormat } = req.body;
+
+    // Convert 1-indexed to 0-indexed for internal processing
+    const result = await processShapePlacement(userId, {
+      shapeId,
+      x: x - 1,
+      y: y - 1,
+      rotation: 0 // No rotation - shape is already in correct orientation
+    });
+
+    // Calculate total lines cleared
+    const totalLinesCleared = result.linesCleared.rows.length + result.linesCleared.columns.length;
+
+    // Return compact format if requested
+    if (useCompactFormat) {
+      const { packTiles, packShape } = require('../utils/bytePacking');
+
+      // Convert 2D tile array to TileData array for packing
+      const tileDataArray = result.tiles.flat();
+      const compactTiles = packTiles(tileDataArray);
+
+      // Pack shapes in the queue
+      const compactQueue = result.queue.map((item: any) => {
+        if (item.type === 'shape') {
+          return {
+            type: 'shape',
+            shape: packShape(item.shape)
+          };
+        }
+        return item;
+      });
+
+      res.status(200).json({
+        success: true,
+        tiles: Array.from(compactTiles), // Convert Uint8Array to regular array for JSON
+        score: result.totalScore,
+        linesCleared: totalLinesCleared,
+        updatedQueue: compactQueue,
+        gameOver: result.isGameOver || false,
+      });
+    } else {
+      // Legacy format
+      const flatTiles = result.tiles.flat();
+
+      res.status(200).json({
+        success: true,
+        tiles: flatTiles,
+        score: result.totalScore,
+        linesCleared: totalLinesCleared,
+        updatedQueue: result.queue,
+        gameOver: result.isGameOver || false,
+      });
+    }
+  } catch (error) {
+    if (error instanceof PlacementError) {
+      res.status(400).json({
+        success: false,
+        error: error.code,
+        message: error.message,
+      });
+      return;
+    }
+
+    console.error('Place shape minimal error:', error);
+    res.status(500).json({
+      success: false,
+      error: 'SERVER_ERROR',
+      message: 'Failed to place shape'
+    });
+  }
+}
+
+/**
+ * Server-authoritative shape rotation
+ * POST /api/game/rotate with {shapeId, direction}
+ */
+export async function rotateShapeMinimal(req: Request, res: Response): Promise<void> {
+  try {
+    const userId = req.userId!;
+    const { shapeId, direction } = req.body;
+
+    // Load game state
+    const gameState = await gameStateService.loadGameState(userId);
+
+    if (!gameState) {
+      res.status(404).json({
+        success: false,
+        error: 'NO_GAME_STATE',
+        message: 'No game state found'
+      });
+      return;
+    }
+
+    // Validate shapeId
+    if (shapeId < 0 || shapeId >= gameState.nextQueue.length) {
+      res.status(400).json({
+        success: false,
+        error: 'INVALID_SHAPE_ID',
+        message: 'Invalid shape index'
+      });
+      return;
+    }
+
+    const queueItem = gameState.nextQueue[shapeId];
+
+    if (queueItem.type !== 'shape') {
+      res.status(400).json({
+        success: false,
+        error: 'NOT_A_SHAPE',
+        message: 'Cannot rotate purchasable slot'
+      });
+      return;
+    }
+
+    // Rotate the shape
+    // Unpack compact shape if needed
+    const shape: Shape = isCompactShape(queueItem.shape) ? unpackShape(queueItem.shape) : queueItem.shape;
+    const rotatedShape = direction === 'clockwise'
+      ? rotateShapeClockwise(shape)
+      : rotateShapeCounterClockwise(shape);
+
+    // Update queue
+    const updatedQueue = [...gameState.nextQueue];
+    updatedQueue[shapeId] = { type: 'shape', shape: rotatedShape };
+
+    // Save updated queue
+    await gameStateService.saveGameState(userId, { nextQueue: updatedQueue });
+
+    res.status(200).json({
+      success: true,
+      newShape: rotatedShape,
+      updatedQueue,
+    });
+  } catch (error) {
+    console.error('Rotate shape minimal error:', error);
+    res.status(500).json({
+      success: false,
+      error: 'SERVER_ERROR',
+      message: 'Failed to rotate shape'
+    });
   }
 }
 

@@ -43,8 +43,19 @@ export type TileAnimation = {
   color?: string;
 };
 
+// Compact representation of tiles for network transport (100 bytes)
+// Index 0-99 where each byte is a color index (0-7) or 255 for empty
+export type CompactTiles = Uint8Array;
+
+// Compact representation of a shape for network transport (3 bytes)
+// 2 bytes for 16-bit block mask + 1 byte for color index
+export type CompactShape = {
+  blocks: Uint16Array; // 16-bit mask: bit 1 = filled, bit 0 = empty
+  color: number;       // Color index (0-7)
+};
+
 export type SerializedQueueItem =
-  | { type: 'shape'; shape: Shape }
+  | { type: 'shape'; shape: Shape | CompactShape }
   | { type: 'purchasable-slot'; cost: number; slotNumber: number };
 
 export type ColorProbability = {
