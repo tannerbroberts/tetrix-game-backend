@@ -21,6 +21,14 @@ export async function register(req: Request, res: Response): Promise<void> {
     // Create session
     req.session.userId = user.id;
 
+    // Save session before responding
+    await new Promise<void>((resolve, reject) => {
+      req.session.save((err) => {
+        if (err) reject(err);
+        else resolve();
+      });
+    });
+
     res.status(201).json({
       user: {
         id: user.id,
@@ -54,6 +62,14 @@ export async function login(req: Request, res: Response): Promise<void> {
 
     // Create session
     req.session.userId = user.id;
+
+    // Save session before responding
+    await new Promise<void>((resolve, reject) => {
+      req.session.save((err) => {
+        if (err) reject(err);
+        else resolve();
+      });
+    });
 
     res.status(200).json({
       user: {
