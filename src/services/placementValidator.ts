@@ -1,7 +1,21 @@
-import { Shape, TileData, Location, ColorName } from '../models/types';
+import { Shape, TileData, Location, ColorName, Block } from '../models/types';
 
 const GRID_SIZE = 10;
 const SHAPE_SIZE = 4;
+
+/**
+ * Create an empty Block (unfilled)
+ */
+function createEmptyBlock(): Block {
+  return { color: 'grey', isFilled: false };
+}
+
+/**
+ * Create a filled Block with the specified color
+ */
+function createFilledBlock(color: ColorName): Block {
+  return { color, isFilled: true };
+}
 
 /**
  * Validate that a shape can be placed at the specified location
@@ -25,7 +39,7 @@ export function validatePlacement(
       const block = shape[shapeRow][shapeCol];
 
       // Skip empty blocks
-      if (!block || block.type === 'empty') {
+      if (!block || !block.isFilled) {
         continue;
       }
 
@@ -71,7 +85,7 @@ export function applyShapeToBoard(
       const block = shape[shapeRow][shapeCol];
 
       // Skip empty blocks
-      if (!block || block.type === 'empty') {
+      if (!block || !block.isFilled) {
         continue;
       }
 
@@ -196,7 +210,7 @@ export function calculatePoints(
   for (let row = 0; row < SHAPE_SIZE; row++) {
     for (let col = 0; col < SHAPE_SIZE; col++) {
       const block = shape[row][col];
-      if (block && block.type !== 'empty') {
+      if (block && block.isFilled) {
         blockCount++;
       }
     }
@@ -227,42 +241,43 @@ export function calculatePoints(
  * Generate a random shape for the queue
  */
 export function generateRandomShape(): Shape {
+  const e = createEmptyBlock();
   // Simple shapes for testing
   const shapes: Shape[] = [
     // I-piece (vertical)
     [
-      [{ type: 'empty' }, { type: 'empty' }, { type: 'empty' }, { type: 'empty' }],
-      [{ type: 'filled', color: 'cyan' }, { type: 'empty' }, { type: 'empty' }, { type: 'empty' }],
-      [{ type: 'filled', color: 'cyan' }, { type: 'empty' }, { type: 'empty' }, { type: 'empty' }],
-      [{ type: 'filled', color: 'cyan' }, { type: 'empty' }, { type: 'empty' }, { type: 'empty' }],
+      [e, e, e, e],
+      [createFilledBlock('blue'), e, e, e],
+      [createFilledBlock('blue'), e, e, e],
+      [createFilledBlock('blue'), e, e, e],
     ],
     // O-piece (2x2)
     [
-      [{ type: 'empty' }, { type: 'empty' }, { type: 'empty' }, { type: 'empty' }],
-      [{ type: 'empty' }, { type: 'filled', color: 'yellow' }, { type: 'filled', color: 'yellow' }, { type: 'empty' }],
-      [{ type: 'empty' }, { type: 'filled', color: 'yellow' }, { type: 'filled', color: 'yellow' }, { type: 'empty' }],
-      [{ type: 'empty' }, { type: 'empty' }, { type: 'empty' }, { type: 'empty' }],
+      [e, e, e, e],
+      [e, createFilledBlock('yellow'), createFilledBlock('yellow'), e],
+      [e, createFilledBlock('yellow'), createFilledBlock('yellow'), e],
+      [e, e, e, e],
     ],
     // T-piece
     [
-      [{ type: 'empty' }, { type: 'empty' }, { type: 'empty' }, { type: 'empty' }],
-      [{ type: 'empty' }, { type: 'filled', color: 'purple' }, { type: 'empty' }, { type: 'empty' }],
-      [{ type: 'filled', color: 'purple' }, { type: 'filled', color: 'purple' }, { type: 'filled', color: 'purple' }, { type: 'empty' }],
-      [{ type: 'empty' }, { type: 'empty' }, { type: 'empty' }, { type: 'empty' }],
+      [e, e, e, e],
+      [e, createFilledBlock('purple'), e, e],
+      [createFilledBlock('purple'), createFilledBlock('purple'), createFilledBlock('purple'), e],
+      [e, e, e, e],
     ],
     // L-piece
     [
-      [{ type: 'empty' }, { type: 'empty' }, { type: 'empty' }, { type: 'empty' }],
-      [{ type: 'filled', color: 'orange' }, { type: 'empty' }, { type: 'empty' }, { type: 'empty' }],
-      [{ type: 'filled', color: 'orange' }, { type: 'empty' }, { type: 'empty' }, { type: 'empty' }],
-      [{ type: 'filled', color: 'orange' }, { type: 'filled', color: 'orange' }, { type: 'empty' }, { type: 'empty' }],
+      [e, e, e, e],
+      [createFilledBlock('orange'), e, e, e],
+      [createFilledBlock('orange'), e, e, e],
+      [createFilledBlock('orange'), createFilledBlock('orange'), e, e],
     ],
     // Single block
     [
-      [{ type: 'empty' }, { type: 'empty' }, { type: 'empty' }, { type: 'empty' }],
-      [{ type: 'empty' }, { type: 'filled', color: 'red' }, { type: 'empty' }, { type: 'empty' }],
-      [{ type: 'empty' }, { type: 'empty' }, { type: 'empty' }, { type: 'empty' }],
-      [{ type: 'empty' }, { type: 'empty' }, { type: 'empty' }, { type: 'empty' }],
+      [e, e, e, e],
+      [e, createFilledBlock('red'), e, e],
+      [e, e, e, e],
+      [e, e, e, e],
     ],
   ];
 

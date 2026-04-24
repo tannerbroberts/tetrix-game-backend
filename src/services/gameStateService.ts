@@ -1,6 +1,56 @@
 import { pool } from '../config/database';
 import { PoolClient } from 'pg';
-import { SavedGameState, TileData, SerializedQueueItem, Shape, ColorProbability } from '../models/types';
+import { SavedGameState, TileData, SerializedQueueItem, Shape, ColorProbability, GameStats, StatValue, ColorName, Block } from '../models/types';
+
+/**
+ * Create an empty StatValue with all color counters at 0
+ */
+function createEmptyStatValue(): StatValue {
+  return {
+    total: 0,
+    colors: {
+      white: 0,
+      grey: 0,
+      red: 0,
+      orange: 0,
+      yellow: 0,
+      green: 0,
+      blue: 0,
+      purple: 0,
+    },
+  };
+}
+
+/**
+ * Create an empty GameStats object
+ */
+function createEmptyGameStats(): GameStats {
+  return {
+    shapesPlaced: createEmptyStatValue(),
+    linesCleared: createEmptyStatValue(),
+    rowsCleared: createEmptyStatValue(),
+    columnsCleared: createEmptyStatValue(),
+    boardClears: createEmptyStatValue(),
+    doubles: createEmptyStatValue(),
+    triples: createEmptyStatValue(),
+    quads: createEmptyStatValue(),
+    points: createEmptyStatValue(),
+  };
+}
+
+/**
+ * Create an empty Block (unfilled)
+ */
+function createEmptyBlock(): Block {
+  return { color: 'grey', isFilled: false };
+}
+
+/**
+ * Create a filled Block with the specified color
+ */
+function createFilledBlock(color: ColorName): Block {
+  return { color, isFilled: true };
+}
 
 /**
  * Load game state for a user
@@ -294,9 +344,9 @@ export async function ensureGameState(userId: string): Promise<SavedGameState> {
     queueSize: -1,
     unlockedSlots: [1],
     stats: {
-      allTime: {},
-      highScore: {},
-      current: {},
+      allTime: createEmptyGameStats(),
+      highScore: createEmptyGameStats(),
+      current: createEmptyGameStats(),
       noTurnStreak: {
         current: 0,
         bestInGame: 0,
@@ -317,28 +367,29 @@ export async function ensureGameState(userId: string): Promise<SavedGameState> {
  * Generate an initial shape for the queue
  */
 function generateInitialShape(): Shape {
+  const e = createEmptyBlock();
   // Simple starter shapes
   const shapes: Shape[] = [
     // Single block
     [
-      [{ type: 'empty' }, { type: 'empty' }, { type: 'empty' }, { type: 'empty' }],
-      [{ type: 'empty' }, { type: 'filled', color: 'red' }, { type: 'empty' }, { type: 'empty' }],
-      [{ type: 'empty' }, { type: 'empty' }, { type: 'empty' }, { type: 'empty' }],
-      [{ type: 'empty' }, { type: 'empty' }, { type: 'empty' }, { type: 'empty' }],
+      [e, e, e, e],
+      [e, createFilledBlock('red'), e, e],
+      [e, e, e, e],
+      [e, e, e, e],
     ],
     // 2x2 block
     [
-      [{ type: 'empty' }, { type: 'empty' }, { type: 'empty' }, { type: 'empty' }],
-      [{ type: 'empty' }, { type: 'filled', color: 'yellow' }, { type: 'filled', color: 'yellow' }, { type: 'empty' }],
-      [{ type: 'empty' }, { type: 'filled', color: 'yellow' }, { type: 'filled', color: 'yellow' }, { type: 'empty' }],
-      [{ type: 'empty' }, { type: 'empty' }, { type: 'empty' }, { type: 'empty' }],
+      [e, e, e, e],
+      [e, createFilledBlock('yellow'), createFilledBlock('yellow'), e],
+      [e, createFilledBlock('yellow'), createFilledBlock('yellow'), e],
+      [e, e, e, e],
     ],
     // I-piece (3 blocks vertical)
     [
-      [{ type: 'empty' }, { type: 'empty' }, { type: 'empty' }, { type: 'empty' }],
-      [{ type: 'filled', color: 'cyan' }, { type: 'empty' }, { type: 'empty' }, { type: 'empty' }],
-      [{ type: 'filled', color: 'cyan' }, { type: 'empty' }, { type: 'empty' }, { type: 'empty' }],
-      [{ type: 'filled', color: 'cyan' }, { type: 'empty' }, { type: 'empty' }, { type: 'empty' }],
+      [e, e, e, e],
+      [createFilledBlock('blue'), e, e, e],
+      [createFilledBlock('blue'), e, e, e],
+      [createFilledBlock('blue'), e, e, e],
     ],
   ];
 
