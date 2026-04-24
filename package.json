@@ -1,0 +1,40 @@
+{
+  "name": "tetrix-game-backend",
+  "version": "1.0.0",
+  "description": "Backend API for Tetrix game with PostgreSQL and session-based auth",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "npm run build:backend",
+    "build:backend": "tsc",
+    "build:frontend": "cd ../tetrix-game && npm run build && cp -r dist ../tetrix-game-backend/dist-frontend",
+    "start": "node dist/index.js",
+    "dev": "tsx watch src/index.ts",
+    "migrate": "tsx src/db/migrations/migrate.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["tetrix", "game", "backend", "postgres", "express"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "connect-pg-simple": "^10.0.0",
+    "pg": "^8.13.1",
+    "bcrypt": "^5.1.1",
+    "zod": "^3.24.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "compression": "^1.7.5"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/express-session": "^1.18.1",
+    "@types/node": "^22.10.5",
+    "@types/pg": "^8.11.10",
+    "@types/bcrypt": "^5.0.2",
+    "@types/cors": "^2.8.17",
+    "@types/compression": "^1.7.5",
+    "typescript": "^5.7.2",
+    "tsx": "^4.19.2"
+  }
+}
