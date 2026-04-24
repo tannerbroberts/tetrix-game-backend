@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npm run build:backend",
     "build:backend": "tsc",
-    "build:frontend": "cd ../tetrix-game && npm run build && cp -r dist ../tetrix-game-backend/dist-frontend",
+    "build:frontend": "cd ../tetrix-game && npm run build && rm -rf ../tetrix-game-backend/dist-frontend && cp -r dist ../tetrix-game-backend/dist-frontend",
     "start": "node dist/index.js",
     "dev": "tsx watch src/index.ts",
     "migrate": "tsx src/db/migrations/migrate.ts",
