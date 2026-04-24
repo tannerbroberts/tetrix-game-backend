@@ -15,12 +15,22 @@ ALTER TABLE users ADD COLUMN IF NOT EXISTS last_active TIMESTAMP WITH TIME ZONE;
 CREATE UNIQUE INDEX IF NOT EXISTS idx_users_username_lower ON users(LOWER(username));
 
 -- Add constraint for username format (alphanumeric + underscore only)
-ALTER TABLE users ADD CONSTRAINT IF NOT EXISTS username_format
-  CHECK (username ~ '^[a-zA-Z0-9_]+$');
+DO $$
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'username_format') THEN
+    ALTER TABLE users ADD CONSTRAINT username_format
+      CHECK (username ~ '^[a-zA-Z0-9_]+$');
+  END IF;
+END $$;
 
 -- Add constraint for username length
-ALTER TABLE users ADD CONSTRAINT IF NOT EXISTS username_length
-  CHECK (LENGTH(username) >= 3 AND LENGTH(username) <= 20);
+DO $$
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'username_length') THEN
+    ALTER TABLE users ADD CONSTRAINT username_length
+      CHECK (LENGTH(username) >= 3 AND LENGTH(username) <= 20);
+  END IF;
+END $$;
 
 -- Index for finding active players
 CREATE INDEX IF NOT EXISTS idx_users_last_active ON users(last_active);
