@@ -1,7 +1,7 @@
 import express from 'express';
 import session from 'express-session';
 import compression from 'compression';
-import path from 'path';
+import cors from 'cors';
 import { ENV, IS_PRODUCTION } from './config/env';
 import { sessionConfig } from './config/session';
 import { testConnection, closeDatabaseConnection } from './config/database';
@@ -17,6 +17,15 @@ const app = express();
 // ============================================================================
 // MIDDLEWARE
 // ============================================================================
+
+// CORS configuration
+const corsOptions = {
+  origin: ENV.FRONTEND_URL || 'http://localhost:5173',
+  credentials: true, // Allow cookies to be sent
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+app.use(cors(corsOptions));
 
 // Body parsing
 app.use(express.json({ limit: '10mb' }));
@@ -54,36 +63,21 @@ app.get('/api/health', (req, res) => {
 });
 
 // ============================================================================
-// SERVE FRONTEND (in production)
+// ROOT ENDPOINT
 // ============================================================================
 
-if (IS_PRODUCTION) {
-  // Serve static files from dist-frontend directory
-  const frontendPath = path.join(__dirname, '..', 'dist-frontend');
-  app.use(express.static(frontendPath));
-
-  // Serve index.html for all non-API routes (SPA support)
-  app.get('*', (req, res) => {
-    if (!req.path.startsWith('/api/')) {
-      res.sendFile(path.join(frontendPath, 'index.html'));
-    } else {
-      res.status(404).json({ error: 'API route not found' });
-    }
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Tetrix Game Backend API',
+    version: '1.0.0',
+    endpoints: {
+      auth: '/api/auth (register, login, logout, me)',
+      game: '/api/game (state, place-shape, rotate-shape, unlock-slot, reset)',
+      leaderboard: '/api/leaderboard (scores)',
+      health: '/api/health',
+    },
   });
-} else {
-  // Development: just show a message
-  app.get('/', (req, res) => {
-    res.json({
-      message: 'Tetrix Game Backend API',
-      version: '1.0.0',
-      endpoints: {
-        auth: '/api/auth (register, login, logout, me)',
-        game: '/api/game (state, place-shape, rotate-shape, unlock-slot, reset)',
-        health: '/api/health',
-      },
-    });
-  });
-}
+});
 
 // ============================================================================
 // ERROR HANDLING

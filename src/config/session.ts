@@ -18,7 +18,7 @@ export const sessionConfig: session.SessionOptions = {
     secure: IS_PRODUCTION, // HTTPS only in production
     httpOnly: true, // Prevent client-side JS access
     maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
-    sameSite: 'lax', // CSRF protection
+    sameSite: IS_PRODUCTION ? 'none' : 'lax', // 'none' required for cross-origin in production
   },
   name: 'tetrix.sid',
 };
