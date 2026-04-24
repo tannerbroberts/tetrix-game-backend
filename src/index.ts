@@ -12,6 +12,32 @@ import authRoutes from './routes/auth.routes';
 import gameRoutes from './routes/game.routes';
 import leaderboardRoutes from './routes/leaderboard.routes';
 
+// ============================================================================
+// ROUTE CONFIGURATION
+// ============================================================================
+// Single source of truth for all API routes
+const ROUTES = {
+  auth: {
+    path: '/api/auth',
+    router: authRoutes,
+    description: 'register, login, logout, me, forgot-password, reset-password',
+  },
+  game: {
+    path: '/api/game',
+    router: gameRoutes,
+    description: 'state, place-shape, place-shape-v2, rotate-shape, unlock-slot, reset',
+  },
+  leaderboard: {
+    path: '/api/leaderboard',
+    router: leaderboardRoutes,
+    description: 'public, user',
+  },
+  health: {
+    path: '/api/health',
+    description: 'health check',
+  },
+} as const;
+
 const app = express();
 
 // Trust Railway proxy for secure cookies
@@ -51,13 +77,14 @@ if (!IS_PRODUCTION) {
 // ============================================================================
 // API ROUTES
 // ============================================================================
+// Programmatically mount routes from ROUTES configuration
 
-app.use('/api/auth', authRoutes);
-app.use('/api/game', gameRoutes);
-app.use('/api/leaderboard', leaderboardRoutes);
+app.use(ROUTES.auth.path, ROUTES.auth.router);
+app.use(ROUTES.game.path, ROUTES.game.router);
+app.use(ROUTES.leaderboard.path, ROUTES.leaderboard.router);
 
 // Health check endpoint
-app.get('/api/health', (req, res) => {
+app.get(ROUTES.health.path, (req, res) => {
   res.status(200).json({
     status: 'ok',
     timestamp: new Date().toISOString(),
@@ -68,17 +95,21 @@ app.get('/api/health', (req, res) => {
 // ============================================================================
 // ROOT ENDPOINT
 // ============================================================================
+// Programmatically generate endpoint documentation from ROUTES configuration
 
 app.get('/', (req, res) => {
+  const endpoints = Object.entries(ROUTES).reduce(
+    (acc, [key, config]) => {
+      acc[key] = `${config.path} (${config.description})`;
+      return acc;
+    },
+    {} as Record<string, string>,
+  );
+
   res.json({
     message: 'Tetrix Game Backend API',
     version: '1.0.0',
-    endpoints: {
-      auth: '/api/auth (register, login, logout, me)',
-      game: '/api/game (state, place-shape, rotate-shape, unlock-slot, reset)',
-      leaderboard: '/api/leaderboard (scores)',
-      health: '/api/health',
-    },
+    endpoints,
   });
 });
 
