@@ -14,6 +14,9 @@ import leaderboardRoutes from './routes/leaderboard.routes';
 
 const app = express();
 
+// Trust Railway proxy for secure cookies
+app.set('trust proxy', 1);
+
 // ============================================================================
 // MIDDLEWARE
 // ============================================================================
