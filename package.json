@@ -10,9 +10,6 @@
     "start": "node dist/index.js",
     "dev": "tsx watch src/index.ts",
     "migrate": "tsx src/db/migrations/migrate.ts",
-    "test": "playwright test",
-    "test:smoke": "BASE_URL=https://tetrix-game-frontend-production.up.railway.app playwright test tests/smoke-test.spec.ts",
-    "test:smoke:headed": "BASE_URL=https://tetrix-game-frontend-production.up.railway.app playwright test tests/smoke-test.spec.ts --headed",
     "seed:test-user": "tsx src/scripts/seed-test-user.ts"
   },
   "keywords": [
@@ -45,7 +42,6 @@
     "@types/express-session": "^1.18.1",
     "@types/node": "^22.10.5",
     "@types/pg": "^8.11.10",
-    "@playwright/test": "^1.49.1",
     "tsx": "^4.19.2",
     "typescript": "^5.7.2"
   }
