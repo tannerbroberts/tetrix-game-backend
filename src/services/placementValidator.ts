@@ -47,8 +47,8 @@ export function validatePlacement(
       const gridRow = location.row + shapeRow;
       const gridCol = location.column + shapeCol;
 
-      // Check bounds (1-indexed, 1 to GRID_SIZE)
-      if (gridRow < 1 || gridRow > GRID_SIZE || gridCol < 1 || gridCol > GRID_SIZE) {
+      // Check bounds (0-indexed, 0 to GRID_SIZE-1)
+      if (gridRow < 0 || gridRow >= GRID_SIZE || gridCol < 0 || gridCol >= GRID_SIZE) {
         return false;
       }
 
@@ -134,9 +134,9 @@ export function clearLines(tiles: TileData[]): {
   const columnsCleared: number[] = [];
 
   // Check rows
-  for (let row = 1; row <= GRID_SIZE; row++) {
+  for (let row = 0; row < GRID_SIZE; row++) {
     let allFilled = true;
-    for (let col = 1; col <= GRID_SIZE; col++) {
+    for (let col = 0; col < GRID_SIZE; col++) {
       const position = `R${row}C${col}`;
       const tile = tileMap.get(position);
       if (!tile || !tile.isFilled) {
@@ -150,9 +150,9 @@ export function clearLines(tiles: TileData[]): {
   }
 
   // Check columns
-  for (let col = 1; col <= GRID_SIZE; col++) {
+  for (let col = 0; col < GRID_SIZE; col++) {
     let allFilled = true;
-    for (let row = 1; row <= GRID_SIZE; row++) {
+    for (let row = 0; row < GRID_SIZE; row++) {
       const position = `R${row}C${col}`;
       const tile = tileMap.get(position);
       if (!tile || !tile.isFilled) {
@@ -167,7 +167,7 @@ export function clearLines(tiles: TileData[]): {
 
   // Clear the tiles
   for (const row of rowsCleared) {
-    for (let col = 1; col <= GRID_SIZE; col++) {
+    for (let col = 0; col < GRID_SIZE; col++) {
       const position = `R${row}C${col}`;
       const tile = tileMap.get(position);
       if (tile) {
@@ -177,7 +177,7 @@ export function clearLines(tiles: TileData[]): {
   }
 
   for (const col of columnsCleared) {
-    for (let row = 1; row <= GRID_SIZE; row++) {
+    for (let row = 0; row < GRID_SIZE; row++) {
       const position = `R${row}C${col}`;
       const tile = tileMap.get(position);
       if (tile) {

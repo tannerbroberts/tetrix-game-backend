@@ -9,8 +9,8 @@ export const ColorNameSchema = z.enum([
 ]);
 
 export const LocationSchema = z.object({
-  row: z.number().int().min(1).max(10),
-  column: z.number().int().min(1).max(10),
+  row: z.number().int().min(0).max(9),
+  column: z.number().int().min(0).max(9),
 });
 
 export const BlockSchema = z.object({
@@ -88,11 +88,11 @@ export const PlaceShapeRequestSchema = z.object({
   ),
 });
 
-// New minimal placement schema for /api/game/state (1-indexed coordinates)
+// New minimal placement schema for /api/game/state (0-indexed coordinates)
 export const PlacementRequestSchema = z.object({
   shapeId: z.number().int().nonnegative(),
-  x: z.number().int().min(1).max(10), // Row (1-10)
-  y: z.number().int().min(1).max(10), // Column (1-10)
+  x: z.number().int().min(0).max(9), // Row (0-9)
+  y: z.number().int().min(0).max(9), // Column (0-9)
 });
 
 export const RotateShapeSchema = z.object({

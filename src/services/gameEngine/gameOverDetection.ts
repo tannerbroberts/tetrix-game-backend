@@ -37,12 +37,12 @@ export function checkGameOver(
 
     for (let rotation = 0; rotation < rotationsToCheck; rotation++) {
       // Check all possible grid positions
-      // The grid is 10x10. The shape is typically 4x4 (but can be larger).
+      // The grid is 10x10 (0-indexed: 0-9). The shape is typically 4x4 (but can be larger).
       // We need to check placement where the top-left of the shape grid
       // could be such that the shape fits.
-      // Range: -3 to 10 covers all possibilities where at least one block might be in bounds
-      for (let row = -3; row <= 10; row++) {
-        for (let col = -3; col <= 10; col++) {
+      // Range: -3 to 9 covers all possibilities where at least one block might be in bounds
+      for (let row = -3; row <= 9; row++) {
+        for (let col = -3; col <= 9; col++) {
           if (isValidPlacement(currentShape, { row, column: col }, tiles)) {
             return false; // Found a valid move!
           }

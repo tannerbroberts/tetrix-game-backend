@@ -57,9 +57,9 @@ export class PlacementError extends Error {
 function tilesToGrid(tiles: TileData[]): TileData[][] {
   const grid: TileData[][] = [];
 
-  for (let row = 1; row <= 10; row++) {
+  for (let row = 0; row < 10; row++) {
     const rowData: TileData[] = [];
-    for (let col = 1; col <= 10; col++) {
+    for (let col = 0; col < 10; col++) {
       const tile = tiles.find(t => t.position === `R${row}C${col}`);
       if (tile) {
         rowData.push(tile);
