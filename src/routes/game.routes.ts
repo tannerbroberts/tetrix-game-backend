@@ -5,7 +5,9 @@ import { requireAuth } from '../middleware/auth';
 import {
   PlaceShapeSchema,
   PlaceShapeRequestSchema,
+  PlacementRequestSchema,
   RotateShapeSchema,
+  RotationRequestSchema,
   UnlockSlotSchema,
   SaveGameStateSchema,
 } from '../utils/schemas';
@@ -18,16 +20,19 @@ router.use(requireAuth);
 // GET /api/game/state
 router.get('/state', gameController.getGameState);
 
-// POST /api/game/state
-router.post('/state', validateBody(SaveGameStateSchema), gameController.saveGameState);
+// POST /api/game/state (now handles placement)
+router.post('/state', validateBody(PlacementRequestSchema), gameController.placeShapeMinimal);
 
-// POST /api/game/place-shape (old client-side logic)
+// POST /api/game/rotate (new server-authoritative rotation)
+router.post('/rotate', validateBody(RotationRequestSchema), gameController.rotateShapeMinimal);
+
+// POST /api/game/place-shape (old client-side logic - deprecated)
 router.post('/place-shape', validateBody(PlaceShapeSchema), gameController.placeShape);
 
-// POST /api/game/place-shape-v2 (new server-authoritative)
+// POST /api/game/place-shape-v2 (old server-authoritative - deprecated)
 router.post('/place-shape-v2', validateBody(PlaceShapeRequestSchema), gameController.placeShapeV2);
 
-// POST /api/game/rotate-shape
+// POST /api/game/rotate-shape (old rotation - deprecated)
 router.post('/rotate-shape', validateBody(RotateShapeSchema), gameController.rotateShape);
 
 // POST /api/game/unlock-slot

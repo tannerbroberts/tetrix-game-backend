@@ -88,9 +88,22 @@ export const PlaceShapeRequestSchema = z.object({
   ),
 });
 
+// New minimal placement schema for /api/game/state (1-indexed coordinates)
+export const PlacementRequestSchema = z.object({
+  shapeId: z.number().int().nonnegative(),
+  x: z.number().int().min(1).max(10), // Row (1-10)
+  y: z.number().int().min(1).max(10), // Column (1-10)
+});
+
 export const RotateShapeSchema = z.object({
   shapeIndex: z.number().int().min(0).max(3),
   clockwise: z.boolean(),
+});
+
+// New rotation schema for /api/game/rotate
+export const RotationRequestSchema = z.object({
+  shapeId: z.number().int().nonnegative(),
+  direction: z.enum(['clockwise', 'counterclockwise']),
 });
 
 export const UnlockSlotSchema = z.object({

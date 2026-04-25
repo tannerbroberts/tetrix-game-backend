@@ -301,9 +301,8 @@ export async function placeShapeMinimal(req: Request, res: Response): Promise<vo
     if (useCompactFormat) {
       const { packTiles, packShape } = require('../utils/bytePacking');
 
-      // Convert 2D tile array to TileData array for packing
-      const tileDataArray = result.tiles.flat();
-      const compactTiles = packTiles(tileDataArray);
+      // Tiles are already flat, no need to flatten
+      const compactTiles = packTiles(result.tiles);
 
       // Pack shapes in the queue
       const compactQueue = result.queue.map((item: any) => {
@@ -325,12 +324,10 @@ export async function placeShapeMinimal(req: Request, res: Response): Promise<vo
         gameOver: result.isGameOver || false,
       });
     } else {
-      // Legacy format
-      const flatTiles = result.tiles.flat();
-
+      // Legacy format - tiles are already flat
       res.status(200).json({
         success: true,
-        tiles: flatTiles,
+        tiles: result.tiles,
         score: result.totalScore,
         linesCleared: totalLinesCleared,
         updatedQueue: result.queue,

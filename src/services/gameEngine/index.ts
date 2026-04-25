@@ -22,7 +22,7 @@ export type PlaceShapeRequest = {
  * Result of a successful shape placement
  */
 export type PlacementResult = {
-  tiles: TileData[][];
+  tiles: TileData[]; // Flat array of 100 tiles
   pointsEarned: number;
   totalScore: number;
   linesCleared: {
@@ -193,7 +193,7 @@ export async function processShapePlacement(
 
   // 12. Return result
   return {
-    tiles: tilesToGrid(clearResult.tiles),
+    tiles: clearResult.tiles, // Already flat TileData[]
     pointsEarned,
     totalScore: newScore,
     linesCleared: {
