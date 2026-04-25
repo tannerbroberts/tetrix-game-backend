@@ -405,12 +405,19 @@ export async function resetGameState(userId: string): Promise<void> {
   try {
     await client.query('BEGIN');
 
+    // Generate initial shapes for the new game
+    const initialQueue = [
+      { type: 'shape', shape: generateInitialShape() },
+      { type: 'shape', shape: generateInitialShape() },
+      { type: 'shape', shape: generateInitialShape() },
+    ];
+
     // Reset game state to defaults
     await client.query(
       `UPDATE game_states
        SET score = 0,
            tiles = '[]',
-           next_queue = '[]',
+           next_queue = $2,
            saved_shape = NULL,
            total_lines_cleared = 0,
            shapes_used = 0,
@@ -418,7 +425,7 @@ export async function resetGameState(userId: string): Promise<void> {
            unlocked_slots = '{1}',
            updated_at = NOW()
        WHERE user_id = $1`,
-      [userId]
+      [userId, JSON.stringify(initialQueue)]
     );
 
     // Reset current stats but keep all-time and high score
